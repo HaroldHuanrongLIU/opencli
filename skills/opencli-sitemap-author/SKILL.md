@@ -38,7 +38,7 @@ Keep individual files under roughly 800 tokens. Split pages/workflows instead of
 ## Authoring Loop
 
 1. **Load existing memory**: read local overlay first, then global seed if present.
-2. **Verify reality**: use `opencli browser <session> state`, `find`, `network`, and `analyze`; browser state is truth.
+2. **Verify reality**: use `opencli browser <session> state`, `find`, `network`, and `analyze`; browser state is truth. If you just completed an `opencli-adapter-author` session for this site, start from the retained browse trace under `~/.opencli/sites/<site>/traces/` as seed evidence instead of re-discovering the path from zero.
 3. **Record only durable structure**: page purpose, stable anchors, state signature, actions, workflows, API references, pitfalls.
 4. **Use stable ids**: page/action/workflow ids should survive URL params, locale text drift, and minor layout changes.
 5. **Write local draft**: update `~/.opencli/sites/<site>/sitemap/...` unless explicitly promoting to repo.
@@ -100,3 +100,10 @@ Endpoint/API knowledge should reference ids from `endpoints.json` when available
 - Do not document bypasses for CAPTCHA, WAF, access control, rate limits, or paid gates.
 - Do not store brittle snapshot indices like `[17]` as durable targets. Store semantic anchors and recovery instructions.
 - Do not describe unverified paths as facts. Use `draft` or `stale` labels.
+- Drafts go inside `sitemap/draft-<topic>.md`, not `~/.opencli/sites/<site>/sitemap.draft.md` at the parent level — the latter is invisible to `opencli browser` sitemap availability detection.
+
+---
+
+## Detailed schema
+
+See [`references/sitemap-schema.md`](./references/sitemap-schema.md) for the full field-level spec — `SITE.md` / `pages/<id>.md` / `workflows/<id>.md` / `apis.md` / `pitfalls.md` schemas, action-level state signatures, `adapter_health` enum (healthy / suspect / broken), endpoint reference rules, two-layer overlay semantics, draft placement, and Phase 2 validation rules.
